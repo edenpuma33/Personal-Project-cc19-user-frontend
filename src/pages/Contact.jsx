@@ -1,4 +1,5 @@
 import { assets } from "@/assets/assets";
+import Map from "@/components/Map";
 import NewsletterBox from "@/components/NewsletterBox";
 import Title from "@/components/Title";
 
@@ -35,6 +36,12 @@ const Contact = () => {
           </p>
         </div>
       </div>
+
+      {/* Map */}
+      <div className="mb-6">
+        <Map/>
+      </div>
+      
       <NewsletterBox />
     </div>
   );
