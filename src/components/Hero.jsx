@@ -1,4 +1,5 @@
 import { assets } from "@/assets/assets";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -14,13 +15,15 @@ const Hero = () => {
             Lastest Arrivals
           </h1>
           <div className="flex items-center gap-2">
-            <p className="font-semibold text-sm md:text-base">SHOP NOW</p>
+            <Link to="/collection">
+              <p className="font-semibold text-sm md:text-base cursor-pointer text-[#034694]">SHOP NOW</p>
+            </Link>
             <p className="w-8 md:w-11 h-[2px] bg-[#414141]"></p>
           </div>
         </div>
       </div>
       {/* Hero Right Side */}
-      <img  className="w-full sm:w-1/2" src={assets.hero_img}/>
+      <img className="w-full sm:w-1/2" src={assets.hero_img} />
     </div>
   );
 };

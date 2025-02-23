@@ -70,7 +70,7 @@ const Product = () => {
                 <button
                   onClick={() => setSize(item)}
                   className={`border py-2 px-4 bg-gray-100 ${
-                    item === size ? "border-orange-500" : ""
+                    item === size ? "border-[#034694]" : ""
                   }`}
                   key={index}
                 >
@@ -81,7 +81,7 @@ const Product = () => {
           </div>
           <button
             onClick={() => addToCart(productData._id, size)}
-            className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
+            className="bg-[#034694] text-white px-8 py-3 text-sm active:bg-gray-700"
           >
             ADD TO CART
           </button>

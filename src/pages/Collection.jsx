@@ -125,6 +125,15 @@ const Collection = () => {
               />{" "}
               KIDS
             </p>
+            <p className="flex gap-2">
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Unisex"}
+                onChange={toggleCategory}
+              />{" "}
+              UNISEX
+            </p>
           </div>
         </div>
 
@@ -140,28 +149,28 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Topwear"}
+                value={"Football Kits"}
                 onChange={toggleSubCategory}
               />{" "}
-              TOPWEAR
+              FOOTBALL KITS
             </p>
             <p className="flex gap-2">
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Bottomwear"}
+                value={"Training"}
                 onChange={toggleSubCategory}
               />{" "}
-              BOTTOMWEAR
+              TRAINING
             </p>
             <p className="flex gap-2">
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Winterwear"}
+                value={"Scarves"}
                 onChange={toggleSubCategory}
               />{" "}
-              WINTERWEAR
+              SCARVES
             </p>
           </div>
         </div>
