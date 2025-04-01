@@ -8,9 +8,9 @@ const About = () => {
       <div className="text-4xl text-center pt-8 border-t">
         <Title text1={"ABOUT"} text2={"US"} />
       </div>
-      <div className="my-10 flex flex-col md:flex-row gap-16">
+      <div className="my-10 flex flex-col justify-around md:flex-row gap-16">
         <img
-          className="w-full md:max-w-[450px]"
+          className="w-full md:max-w-[450px] sm:max-h-[250px]"
           src={assets.about_img}
           alt=""
         />
@@ -28,25 +28,6 @@ const About = () => {
             compliments Fanatics successful U.S. operation by focusing on
             partnerships with the biggest sporting teams and organisations
             around the world.
-          </p>
-          <p>
-            Operating from its base in the UK's sporting stronghold of
-            Manchester, the international business provides online, retail and
-            end-to-end event solutions for over 30 partners across various
-            sports. Fanatics has relationships with globally recognised English
-            Premier League, La Liga, Bundesliga and Ligue 1 clubs, along with
-            representation across all major US Sports Leagues, Golf, Rugby, F1,
-            esports and Tennis.
-          </p>
-          <p>
-            Internationally, Fanatics also delivers specific global leadership
-            in event, city centre and in-venue retail; providing expertise at
-            leading soccer, rugby and golfing venues. Fulfilment and service
-            infrastructure has also expanded internationally, leveraging the
-            historic expertise of Kitbag in international markets and
-            integrating with the marketing and technology solutions
-            traditionally used by Fanatics across its sites and partners in the
-            U.S.
           </p>
           <p>
             The Chelsea Online Megastore at chelseamegastore.com is operated

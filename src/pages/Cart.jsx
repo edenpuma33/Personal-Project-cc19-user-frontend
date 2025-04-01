@@ -1,8 +1,8 @@
-import { assets } from "@/assets/assets";
 import CartTotal from "@/components/CartTotal";
 import Title from "@/components/Title";
 import { ShopContext } from "@/context/ShopContext";
 import { useContext, useEffect, useState } from "react";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Cart = () => {
   const { products, currency, cartItems, updatedQuantity, navigate } =
@@ -11,20 +11,23 @@ const Cart = () => {
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
-    const tempData = [];
-    for (const items in cartItems) {
-      for (const item in cartItems[items]) {
-        if (cartItems[items][item] > 0) {
-          tempData.push({
-            _id: items,
-            size: item,
-            quantity: cartItems[items][item],
-          });
+    if (products.length > 0) {
+      const tempData = [];
+      for (const id in cartItems) {
+        for (const size in cartItems[id]) {
+          if (cartItems[id][size] > 0) {
+            tempData.push({
+              id: id,
+              size: size,
+              quantity: cartItems[id][size],
+            });
+          }
         }
       }
+      setCartData(tempData);
     }
-    setCartData(tempData);
-  }, [cartItems]);
+  }, [cartItems, products]);
+
   return (
     <div className="border-t pt-14">
       <div className="text-2xl mb-3">
@@ -33,8 +36,12 @@ const Cart = () => {
       <div>
         {cartData.map((item, index) => {
           const productData = products.find(
-            (product) => product._id === item._id
+            (product) => product.id === Number(item.id)
           );
+
+          if (!productData) {
+            return null;
+          }
           return (
             <div
               key={index}
@@ -66,7 +73,7 @@ const Cart = () => {
                   e.target.value === "" || e.target.value === "0"
                     ? null
                     : updatedQuantity(
-                        item._id,
+                        item.id,
                         item.size,
                         Number(e.target.value)
                       )
@@ -76,11 +83,9 @@ const Cart = () => {
                 min={1}
                 defaultValue={item.quantity}
               />
-              <img
-                onClick={() => updatedQuantity(item._id, item.size, 0)}
-                className="w-4 mr-4 sm:w-5 cursor-pointer"
-                src={assets.bin_icon}
-                alt=""
+              <RiDeleteBin6Line
+                onClick={() => updatedQuantity(item.id, item.size, 0)}
+                className="w-4 mr-4 sm:w-5 cursor-pointer text-black"
               />
             </div>
           );

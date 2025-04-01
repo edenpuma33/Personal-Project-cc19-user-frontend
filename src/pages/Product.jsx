@@ -5,25 +5,28 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 const Product = () => {
-  const { productId } = useParams();
+  const { id } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
 
-  const fetchProductData = async () => {
-    products.map((item) => {
-      if (item._id === productId) {
-        setProductData(item);
-        setImage(item.image[0]);
-        return null;
-      }
-    });
+  const fetchProductData = () => {
+    const product = products.find((item) => item.id === Number(id));
+    if (product) {
+      // อัปเดต productData ด้วยข้อมูลสินค้า
+      setProductData(product);
+      setImage(product.image[0]);
+    } else {
+      console.log("Product not found!");
+    }
   };
 
+  // เรียก fetchProductData เมื่อ id หรือ products เปลี่ยน
   useEffect(() => {
     fetchProductData();
-  }, [productId, products]);
+  }, [id, products]);
+
   return productData ? (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
       {/* --- Product Data --- */}
@@ -56,6 +59,7 @@ const Product = () => {
             <img src={assets.star_dull_icon} alt="" className="w-3 5" />
             <p className="pl-2">(122)</p>
           </div>
+          <p className="text-green-600">In Stock</p>
           <p className="mt-5 text-3xl font-medium">
             {currency}
             {productData.price}
@@ -80,7 +84,7 @@ const Product = () => {
             </div>
           </div>
           <button
-            onClick={() => addToCart(productData._id, size)}
+            onClick={() => addToCart(productData.id, size)}
             className="bg-[#034694] text-white px-8 py-3 text-sm active:bg-gray-700"
           >
             ADD TO CART

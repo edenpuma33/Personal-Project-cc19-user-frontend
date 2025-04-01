@@ -2,17 +2,44 @@ import { assets } from "@/assets/assets";
 import { ShopContext } from "@/context/ShopContext";
 import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { FaSearch, FaChevronLeft } from "react-icons/fa";
+import { IoPersonSharp } from "react-icons/io5";
+import { BsBasket3Fill } from "react-icons/bs";
+import { IoMdMenu } from "react-icons/io";
 
 const Navbar = () => {
-  const [visible, setVisible] = useState(false);
-  const { setShowSearch, getCartCount } = useContext(ShopContext);
+  const [visible, setVisible] = useState(false); // ควบคุมเมนู sidebar ในมือถือ
+
+  const context = useContext(ShopContext);
+  if (!context) {
+    console.error(
+      "Navbar: ShopContext is undefined. Ensure Navbar is wrapped in ShopContextProvider."
+    );
+    return <div>Loading...</div>; // Fallback UI
+  }
+
+  const {
+    setShowSearch,
+    getCartCount,
+    navigate,
+    token,
+    setToken,
+    setCartItems,
+  } = useContext(ShopContext);
+
+  const logout = () => {
+    navigate("/login");
+    localStorage.removeItem("token");
+    setToken("");
+    setCartItems([]);
+  };
 
   return (
-    <div className="flex items-center justify-between py-5 font-medium">
+    <div className="flex items-center justify-between py-5 font-medium bg-[#001489]">
       <Link to="/">
-        <img src={assets.logo} className="w-36" alt="" />
+        <img src={assets.logo_chelsea} className="w-36" alt="" />
       </Link>
-      <ul className="hidden sm:flex gap-8 text-lg font-medium text-[#034694]">
+      <ul className="hidden sm:flex gap-8 text-lg font-medium text-[#ffffff]">
         <NavLink to="/" className="flex flex-col items-center gap-1">
           <p>HOME</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-[#dba111] hidden" />
@@ -31,39 +58,42 @@ const Navbar = () => {
         </NavLink>
       </ul>
       <div className="flex items-center gap-6">
-        <img
+        <FaSearch
           onClick={() => setShowSearch(true)}
-          src={assets.search_icon}
-          className="w-5 cursor-pointer"
-          alt=""
+          className="w-5 cursor-pointer text-white"
         />
         <div className="group relative">
-          <Link to="/login">
-            <img
-              className="w-5 cursor-pointer"
-              src={assets.profile_icon}
-              alt=""
-            />
-          </Link>
-          <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
-            <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
-              <p className="cursor-pointer hover:text-black">My Profile</p>
-              <p className="cursor-pointer hover:text-black">Orders</p>
-              <p className="cursor-pointer hover:text-black">Logout</p>
+          <IoPersonSharp
+            onClick={() => (token ? null : navigate("/login"))}
+            className="w-5 cursor-pointer text-white"
+          />
+          {/* Dropdown Menu */}
+          {token && (
+            <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
+              <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded">
+                <p className="cursor-pointer hover:text-black">My Profile</p>
+                <p
+                  onClick={() => navigate("/orders")}
+                  className="cursor-pointer hover:text-black"
+                >
+                  Orders
+                </p>
+                <p onClick={logout} className="cursor-pointer hover:text-black">
+                  Logout
+                </p>
+              </div>
             </div>
-          </div>
+          )}
         </div>
         <Link to="/cart" className="relative">
-          <img src={assets.cart_icon} className="w-5 min-w-5" alt="" />
-          <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-[#034694] text-white aspect-square rounded-full text-[8px]">
+          <BsBasket3Fill className="w-5 min-w-5 text-white" />
+          <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-[#dba111] text-black font-bold aspect-square rounded-full text-[8px]">
             {getCartCount()}
           </p>
         </Link>
-        <img
+        <IoMdMenu
           onClick={() => setVisible(true)}
-          src={assets.menu_icon}
-          className="w-5 cursor-pointer sm:hidden"
-          alt=""
+          className="w-5 cursor-pointer sm:hidden text-white"
         />
       </div>
 
@@ -78,7 +108,7 @@ const Navbar = () => {
             onClick={() => setVisible(false)}
             className="flex items-center gap-4 p-3 cursor-pointer"
           >
-            <img className="h-4 rotate-180" src={assets.dropdown_icon} alt="" />
+            <FaChevronLeft className="h-4 text-black" />
             <p>Back</p>
           </div>
           <NavLink

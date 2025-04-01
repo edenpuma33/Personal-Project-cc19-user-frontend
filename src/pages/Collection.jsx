@@ -12,6 +12,7 @@ const Collection = () => {
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relavent");
 
+  // เพิ่มหรือลบค่าใน category ตาม checkbox
   const toggleCategory = (e) => {
     if (category.includes(e.target.value)) {
       setCategory((prev) => prev.filter((item) => item !== e.target.value));
@@ -20,6 +21,7 @@ const Collection = () => {
     }
   };
 
+  // เพิ่มหรือลบค่าใน subCategory ตาม checkbox
   const toggleSubCategory = (e) => {
     if (subCategory.includes(e.target.value)) {
       setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
@@ -28,6 +30,7 @@ const Collection = () => {
     }
   };
 
+  // กรอง products ตาม search, category, subCategory
   const applyFilter = () => {
     let productsCopy = products.slice();
 
@@ -69,11 +72,12 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilter();
-  }, [category, subCategory, search, showSearch]);
+  }, [category, subCategory, search, showSearch, products]);
 
   useEffect(() => {
     sortProduct();
   }, [sortType]);
+  
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
       {/* Filter Options */}
@@ -105,7 +109,7 @@ const Collection = () => {
                 value={"Men"}
                 onChange={toggleCategory}
               />{" "}
-              MEN
+              Men
             </p>
             <p className="flex gap-2">
               <input
@@ -114,7 +118,7 @@ const Collection = () => {
                 value={"Women"}
                 onChange={toggleCategory}
               />{" "}
-              WOMEN
+              Women
             </p>
             <p className="flex gap-2">
               <input
@@ -123,7 +127,7 @@ const Collection = () => {
                 value={"Kids"}
                 onChange={toggleCategory}
               />{" "}
-              KIDS
+              Kids
             </p>
             <p className="flex gap-2">
               <input
@@ -132,7 +136,7 @@ const Collection = () => {
                 value={"Unisex"}
                 onChange={toggleCategory}
               />{" "}
-              UNISEX
+              Unisex
             </p>
           </div>
         </div>
@@ -149,10 +153,10 @@ const Collection = () => {
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Football Kits"}
+                value={"Kits"}
                 onChange={toggleSubCategory}
               />{" "}
-              FOOTBALL KITS
+              Kits
             </p>
             <p className="flex gap-2">
               <input
@@ -161,16 +165,25 @@ const Collection = () => {
                 value={"Training"}
                 onChange={toggleSubCategory}
               />{" "}
-              TRAINING
+              Training
             </p>
             <p className="flex gap-2">
               <input
                 className="w-3"
                 type="checkbox"
-                value={"Scarves"}
+                value={"Retro"}
                 onChange={toggleSubCategory}
               />{" "}
-              SCARVES
+              Retro
+            </p>
+            <p className="flex gap-2">
+              <input
+                className="w-3"
+                type="checkbox"
+                value={"Others"}
+                onChange={toggleSubCategory}
+              />{" "}
+              Gifts & Accessories
             </p>
           </div>
         </div>
@@ -187,7 +200,7 @@ const Collection = () => {
           >
             <option value="relavent">Sort by: Relavant</option>
             <option value="low-high">Sort by: Low to High</option>
-            <option value="high-low">Sort by: Hight to Low</option>
+            <option value="high-low">Sort by: High to Low</option>
           </select>
         </div>
 
@@ -197,7 +210,7 @@ const Collection = () => {
             <ProductItem
               key={index}
               name={item.name}
-              id={item._id}
+              id={item.id}
               price={item.price}
               image={item.image}
             />

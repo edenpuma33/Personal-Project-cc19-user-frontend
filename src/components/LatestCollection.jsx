@@ -9,7 +9,7 @@ const LatestCollection = () => {
 
   useEffect(() => {
     setLatestProducts(products.slice(0, 10));
-  }, []);
+  }, [products]);
   return (
     <div className="my-10">
       <div className="text-center py- text-3xl">
@@ -24,7 +24,7 @@ const LatestCollection = () => {
         {lastestProducts.map((item, index) => (
           <ProductItem
             key={index}
-            id={item._id}
+            id={item.id}
             image={item.image}
             name={item.name}
             price={item.price}

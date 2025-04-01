@@ -11,3 +11,6 @@ createRoot(document.getElementById("root")).render(
     </ShopContextProvider>
   </BrowserRouter>
 );
+
+// <BrowserRouter>: ห่อแอปเพื่อให้ใช้ routing ได้
+// <ShopContextProvider>: ห่อ App.jsx ด้วย ShopContextProvider ทำให้ทุกหน้า (เช่น Cart, Product) เข้าถึงฟังก์ชันและ state ได้

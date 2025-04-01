@@ -18,6 +18,7 @@ a.active hr {
   font-style: normal;
 }
 
+/* ซ่อน scrollbar ในเบราว์เซอร์ Webkit (เช่น Chrome, Safari) */
 ::-webkit-scrollbar {
   display: none;
 }
